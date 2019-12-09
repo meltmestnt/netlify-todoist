@@ -71,7 +71,7 @@ function AutocompleteList(props) {
   console.log(labels, open);
   return (
     <Popper
-      open=
+      open
       anchorEl={anchorEl}
       placement="bottom-start"
       className={classes.popper}
