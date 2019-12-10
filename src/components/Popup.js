@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(({ palette: { type } }) => ({
   popup: {
-    background: type === "light" ? "#212121" : "#37474f",
+    background: type === "light" ? "#212121" : "#303030",
     color: type === "light" ? "white" : "lightgrey"
   }
 }));

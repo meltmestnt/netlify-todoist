@@ -68,9 +68,14 @@ function AutocompleteList(props) {
     noLabels
   } = props;
   const open = Boolean(anchorEl);
-  console.log(labels, open);
   return (
-    
+    <Popper
+      open={open}
+      anchorEl={anchorEl}
+      placement="bottom-start"
+      className={classes.popper}
+      transition
+    >
       <Autocomplete
         open
         options={labels}
@@ -130,7 +135,7 @@ function AutocompleteList(props) {
           );
         }}
       />
-   
+    </Popper>
   );
 }
 

@@ -61,7 +61,7 @@ function ChipInp(props) {
       value={input || ""}
       autoFocus
       variant="outlined"
-      label="Введите название проекта"
+      label="Введите название задачи"
       className={classes.inputMain}
       onChange={changeHandler}
       onKeyPress={e => {

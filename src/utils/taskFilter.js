@@ -1,8 +1,32 @@
 import React from "react";
 import { useSelector } from "react-redux";
+
+export const useTagControls = () => {
+  const [marks, setMarks] = React.useState([]);
+  const [priority, setPriority] = React.useState([]);
+  const [projects, setProject] = React.useState([]);
+  return {
+    marks: [marks, setMarks],
+    projects: [projects, setProject],
+    priority: [priority, setPriority]
+  };
+};
+
 export default taskIds => {
   const tasks = useSelector(state => state.tasks.tasks);
   return taskIds.map(id => tasks.filter(t => t.id === id)[0] || null);
+};
+export const useTaskWhichTag = task => {
+  const tags = useSelector(state => state.tags);
+  let tagsSelected = [];
+  Object.keys(tags).forEach(t => {
+    tags[t].forEach(i => {
+      if (i.taskIds.includes(task.id)) {
+        tagsSelected.push(i);
+      }
+    });
+  });
+  return tagsSelected;
 };
 export const useDetermineColumn = date => {
   const columns = useSelector(state => state.tasks.columns);
@@ -11,7 +35,7 @@ export const useDetermineColumn = date => {
     Object.values(columns).find(col => {
       return col.date ? col.date.getTime() === date.getTime() : true;
     }) || null;
-  console.log(column.id);
+
   return column.id;
 };
 export const useDetermineTag = (id, selector) => {
@@ -28,7 +52,7 @@ export const useDetermineTag = (id, selector) => {
 };
 export const useTagTasks = (item, selector) => {
   const tasks = useSelector(state => state.tasks.tasks);
-  console.log(item);
+
   return item
     ? item.taskIds.map(id => tasks.filter(t => t.id === id)[0] || null)
     : null;

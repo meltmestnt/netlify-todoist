@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { createTask } from "./../redux/actions";
 import generateId from "./../utils/generator";
 import { useDetermineColumn } from "../utils/taskFilter";
+import { useTagControls } from "./../utils/taskFilter";
 const useStyles = makeStyles(theme => ({
   upperContainer: {
     display: "flex",
@@ -67,13 +68,15 @@ function CreateTask(props) {
   const todayWithoutHours = new Date();
   todayWithoutHours.setHours(0, 0, 0, 0);
   const [date, changeDate] = React.useState(props.date || todayWithoutHours);
-
+  const {
+    marks: [marks, setMarks],
+    projects: [projects, setProjects],
+    priority: [priority, setPriority]
+  } = useTagControls();
   const classes = useStyles();
-  const [projects, setProjects] = React.useState([]);
+
   const [input, setInput] = React.useState("");
 
-  const [marks, setMarks] = React.useState([]);
-  const [priority, setPriority] = React.useState([]);
   const { cancel, column, tagColumnId = null } = props;
   const dispatch = useDispatch();
   const columnByDate = useDetermineColumn(date);
@@ -104,16 +107,6 @@ function CreateTask(props) {
         ? columnByDate
         : "Все";
 
-    console.log(
-      "Собственнная дата",
-      date,
-      "Пропс дата",
-      props.date,
-      "колумн айди",
-      columnId,
-      "колумн",
-      column
-    );
     [...projects, ...marks].forEach(i =>
       dispatch(createTask(task, null, i.id))
     );

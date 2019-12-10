@@ -15,11 +15,13 @@ const dark = {
     MuiTooltip: {
       popper: {
         color: "#D3D3D3",
-        background: `#282C34 !important`
+        background: `#282C34 !important`,
+        opacity: 0.95
       },
       tooltip: {
         boxShadow: `0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)`,
         color: "#D3D3D3",
+        opacity: 0.95,
         background: `#282C34 !important`
       }
     },

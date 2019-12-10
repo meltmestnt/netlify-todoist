@@ -19,7 +19,9 @@ const useStyles = makeStyles(theme => ({
       borderStyle: "solid"
     }
   },
-  popper: arrowGenerator(theme.palette.grey[700])
+  popper: arrowGenerator(
+    theme.palette.type === "dark" ? "rgba(48,48,48)" : "gray"
+  )
 }));
 
 function arrowGenerator(color) {

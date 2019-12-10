@@ -47,11 +47,7 @@ function ExpandedList(props) {
           ></ListItemText>
           {toggle ? <ExpandLess></ExpandLess> : <ExpandMore></ExpandMore>}
         </ListItem>
-        <Button
-          color="secondary"
-          onClick={openModal}
-          style={{ minWidth: "auto" }}
-        >
+        <Button onClick={openModal} style={{ minWidth: "auto" }}>
           <AddIcon></AddIcon>
         </Button>
       </div>

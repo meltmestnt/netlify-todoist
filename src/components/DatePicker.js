@@ -1,26 +1,24 @@
 import React from "react";
 import "date-fns";
+import ruLocale from "date-fns/locale/ru";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
-  KeyboardDatePicker
+  DatePicker as Picker
 } from "@material-ui/pickers";
-function DatePicker({ date, setDate }) {
+function DatePicker({ date, setDate, outlined = false }) {
   const handleDateChange = date => {
     setDate(date);
   };
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <KeyboardDatePicker
-        margin="normal"
-        id="date-picker-dialog"
-        label="Date picker dialog"
-        format="MM/dd/yyyy"
+    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
+      <Picker
+        label="Выберите дату"
+        cancelLabel="отмена"
+        inputVariant={outlined ? "outlined" : "standard"}
         value={date}
         onChange={handleDateChange}
-        KeyboardButtonProps={{
-          "aria-label": "change date"
-        }}
+        invalidLabel="Неверная дата!"
       />
     </MuiPickersUtilsProvider>
   );

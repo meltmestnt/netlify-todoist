@@ -78,7 +78,11 @@ function DialogColorPicker(props) {
           value={color}
           onChange={handleChange}
           labelWidth={labelWidth}
-          style={{ display: "flex" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            alignContent: "center"
+          }}
         >
           {colors.map(color => {
             return (
@@ -93,7 +97,9 @@ function DialogColorPicker(props) {
                 value={color.hex}
               >
                 <ColorBadge color={color.hex}></ColorBadge>
-                <span style={{ margin: 0 }}>{color.color}</span>
+                <span style={{ margin: 0, marginLeft: "5px" }}>
+                  {color.color}
+                </span>
               </MenuItem>
             );
           })}

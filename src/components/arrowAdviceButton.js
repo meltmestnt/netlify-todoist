@@ -14,11 +14,12 @@ const useStyles = makeStyles(theme => ({
     color: `${theme.palette.type === "dark" ? "#fff" : "#000000"} !important`
   }
 }));
-function ArrowAdviceButton({ text }, ref) {
+function ArrowAdviceButton({ text, ...rest }, ref) {
   const ownClasses = useStyles();
   return (
     <button
       ref={ref}
+      {...rest}
       variant="outlined"
       className={ownClasses.secondaryButton}
       color="secondary"

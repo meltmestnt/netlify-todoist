@@ -19,11 +19,10 @@ export default function(props) {
   const parsed = queryString.parse(props.location.search);
   const tag = useDetermineTag(parsed.id);
   const tasks = useTagTasks(tag);
-  console.log(props.location.pathname.match(/\/\w+\//));
+
+  const type = tag && `${tag.type === "project" ? "проекты" : "метки"}`;
   const tooltipButton = tag ? (
-    <ArrowAdviceButton
-      text={`Как использовать ${tag.type === "project" ? "проекты" : "метки"}`}
-    ></ArrowAdviceButton>
+    <ArrowAdviceButton text={`Как использовать ${type}`}></ArrowAdviceButton>
   ) : null;
   return (
     <Container className={props.classes.content}>
@@ -46,7 +45,7 @@ export default function(props) {
               toggleTabs={toggleTabs}
             ></ToAddTaskButton>
           )}
-          {(tasks || tasks.length < 0) && !isCreating && (
+          {tasks.length === 0 && !isCreating && (
             <div
               style={{
                 margin: "50px 0px",
@@ -61,9 +60,7 @@ export default function(props) {
                 variant="subtitle1"
                 style={{ margin: "15px 0px 5px 0px" }}
               >
-                {`Организуйте свои задачи по ${
-                  tag.type === "project" ? "проектам" : "меткам"
-                }`}
+                {`Организуйте свои задачи по ${type}`}
               </Typography>
               <Typography
                 variant="body2"
@@ -94,14 +91,16 @@ export default function(props) {
                     <Typography
                       style={{ fontSize: "1rem", margin: "0px 10px" }}
                     >
-                      Заведите привычку на день
+                      {`Как использовать ${type}`}
                     </Typography>
                   </>
                 }
                 body={
                   <Typography style={{ fontSize: "0.8rem" }}>
-                    Каждое утро выделяйте 10 минут на то, чтобы прояснить свой
-                    ум и спланировать день.
+                    Разделять рабочие и личные задачи. Создать поэтапный план
+                    достижения цели. Сотрудничать с коллегами. Поделиться
+                    списком дел с близкими. Записывать, что прочитать или
+                    посмотреть
                   </Typography>
                 }
               ></ArrowTooltip>

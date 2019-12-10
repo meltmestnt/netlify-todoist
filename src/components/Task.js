@@ -1,6 +1,6 @@
 import React from "react";
 import DoneIcon from "@material-ui/icons/Done";
-import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
+import TaskInfo from "./TaskInfo";
 import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
@@ -8,6 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Draggable } from "react-beautiful-dnd";
 import { useTheme } from "@material-ui/core/styles";
 import ArrowTooltip from "./ArrowTooltip";
+import TaskTitle from "./TaskTitle";
 import { deleteTask } from "./../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 const useStyles = makeStyles(theme => ({
@@ -33,33 +34,12 @@ const useStyles = makeStyles(theme => ({
   },
   icon: {
     opacity: 0.6
-  },
-  circle: {
-    width: 20,
-
-    alignItems: "center",
-    justifyContent: "center",
-    display: "flex",
-    height: 20,
-    background: "transparent",
-    borderRadius: "50%",
-    border: `1px solid ${theme.palette.type === "light" ? "black" : "#D3D3D3"}`,
-    transition: "0.3s",
-    marginRight: 15,
-    cursor: "pointer",
-    "&:hover": {
-      background: "rgba(211,211,211,0.3)"
-    },
-    "& svg": {
-      width: "50%",
-      height: "50%"
-    }
   }
 }));
 
 function Task({ task, index }) {
   const classes = useStyles();
-  const [displayDone, toggleIcon] = React.useState(false);
+
   const theme = useTheme();
   const dispatch = useDispatch();
   const columns = useSelector(state => Object.values(state.tasks.columns));
@@ -115,21 +95,9 @@ function Task({ task, index }) {
                 ></ArrowTooltip>
               )}
 
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <span
-                  className={classes.circle}
-                  onMouseOver={e => toggleIcon(true)}
-                  onMouseLeave={e => toggleIcon(false)}
-                  onClick={delTask}
-                >
-                  <DoneIcon
-                    style={{ transition: "0.3s", opacity: displayDone ? 1 : 0 }}
-                  />
-                </span>
-                <Typography variant="body1">{task.title}</Typography>
-              </div>
+              <TaskTitle deleteTask={delTask} task={task}></TaskTitle>
               <div>
-                <ErrorOutlineIcon className={classes.icon}></ErrorOutlineIcon>
+                <TaskInfo deleteTask={delTask} task={task}></TaskInfo>
               </div>
             </div>
           </div>
