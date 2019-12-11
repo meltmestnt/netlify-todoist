@@ -31,9 +31,11 @@ const useStyles = makeStyles(theme => ({
   inputDate: {
     maxWidth: "40%",
     marginLeft: 10,
+
     [theme.breakpoints.down("sm")]: {
       width: "100%",
-      maxWidth: "100%"
+      maxWidth: "100%",
+      marginTop: 15
     }
   },
   inputMain: {
@@ -68,18 +70,19 @@ function CreateTask(props) {
   const todayWithoutHours = new Date();
   todayWithoutHours.setHours(0, 0, 0, 0);
   const [date, changeDate] = React.useState(props.date || todayWithoutHours);
+  const { cancel, column, tag } = props;
   const {
     marks: [marks, setMarks],
     projects: [projects, setProjects],
     priority: [priority, setPriority]
-  } = useTagControls();
+  } = useTagControls(tag);
+
   const classes = useStyles();
 
   const [input, setInput] = React.useState("");
-
-  const { cancel, column, tagColumnId = null } = props;
   const dispatch = useDispatch();
   const columnByDate = useDetermineColumn(date);
+  console.log(projects);
   const setDate = date => {
     const newDate = new Date(date);
     newDate.setHours(0, 0, 0, 0);

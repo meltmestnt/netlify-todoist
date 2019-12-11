@@ -2,43 +2,35 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import BookmarksIcon from "@material-ui/icons/Bookmarks";
 import ArrowTooltip from "./ArrowTooltip";
-import AutocompleteList from "./../components/AutocompleteList";
+import AutocompleteDialog from "./AutocompleteDialog";
 import { useSelector } from "react-redux";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 
 export default function MarksSuggest(props) {
   const { classes } = props;
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [dialog, toggleDialog] = React.useState(null);
   const { marks, setMarks } = props;
   const labels = useSelector(state => state.tags.marks);
   return (
     <React.Fragment>
       <ArrowTooltip
         button={
-          <Button
-            onClick={ev => setAnchorEl(ev.currentTarget)}
-            className={classes.button}
-          >
+          <Button onClick={ev => toggleDialog(true)} className={classes.button}>
             <BookmarksIcon className={classes.icon}></BookmarksIcon>{" "}
           </Button>
         }
         title={"Выбрать метку"}
       ></ArrowTooltip>
-      <AutocompleteList
-        anchorEl={anchorEl}
-        setAnchorEl={setAnchorEl}
+      <AutocompleteDialog
+        dialog={dialog}
+        toggleDialog={toggleDialog}
         pendingValue={marks}
         setPendingValue={setMarks}
-        label={"Метки"}
-        placeholder="Введите название марки"
-        labels={labels}
+        label="Метки"
         noLabels="Нет созданных меток!"
-        tagIcon={item => (
-          <LocalOfferIcon
-            style={{ color: item.color, margin: "0px 10px 0px 3px" }}
-          />
-        )}
-      ></AutocompleteList>
+        placeholder="Введите название метки"
+        labels={labels}
+      ></AutocompleteDialog>
     </React.Fragment>
   );
 }

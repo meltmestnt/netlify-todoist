@@ -17,6 +17,14 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     margin: 5
   },
+  paper: {
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: "100% !important",
+      width: "100%",
+      minHeight: "100vh",
+      margin: "0px !important"
+    }
+  },
   text: {
     margin: 5
   }
@@ -52,7 +60,13 @@ function TagAddDialog(props) {
     toggleFavorite(false);
   };
   return (
-    <Dialog fullWidth={true} maxWidth="sm" open={open} onClose={close}>
+    <Dialog
+      classes={{ paper: classes.paper }}
+      fullWidth={true}
+      maxWidth="sm"
+      open={open}
+      onClose={close}
+    >
       <DialogTitle id="form-dialog-title">Создать {title}</DialogTitle>
       <DialogContent>
         <DialogContentText className={classes.text}>

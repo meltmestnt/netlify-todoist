@@ -14,6 +14,7 @@ import Button from "@material-ui/core/Button";
 import GradeIcon from "@material-ui/icons/Grade";
 import ArrowTooltip from "./../components/ArrowTooltip";
 import ArrowAdviceButton from "./../components/arrowAdviceButton";
+import NotFoundImage from "./../components/NotFoundImage";
 export default function(props) {
   const [isCreating, toggleTabs] = React.useState(false);
   const parsed = queryString.parse(props.location.search);
@@ -35,7 +36,7 @@ export default function(props) {
           {isCreating ? (
             <CreateTask
               column={null}
-              tagColumnId={tag.id}
+              tag={tag}
               date={null}
               cancel={() => toggleTabs(false)}
             ></CreateTask>
@@ -108,7 +109,19 @@ export default function(props) {
           )}
         </>
       ) : (
-        <Typography variant="h4">Ничего не найдено!</Typography>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "center",
+            width: "100%",
+            height: "100%"
+          }}
+        >
+          <span style={{ width: 400, height: 350 }}>
+            <NotFoundImage></NotFoundImage>
+          </span>
+        </div>
       )}
     </Container>
   );
