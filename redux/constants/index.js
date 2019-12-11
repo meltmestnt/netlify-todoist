@@ -1,0 +1,12 @@
+export const CREATE_PROJECT = "CREATE_PROJECT";
+export const CREATE_FILTER = "CREATE_FILTER";
+export const CREATE_MARK = "CREATE_MARK";
+export const CREATE_TASK = "CREATE_TASK";
+export const CREATE_USER = "CREATE_USER";
+export const LOGIN_USER = "LOGIN_USER";
+export const SORT_COLUMN = "SORT_COLUMN";
+export const MOVE_TASK = "MOVE_TASK";
+export const DRAG_START = "DRAG_START";
+export const DRAG_END = "DRAG_END";
+export const DELETE_TASK = "DELETE_TASK";
+export const SORT_MENU_COLUMN = "SORT_MENU_COLUMN";
