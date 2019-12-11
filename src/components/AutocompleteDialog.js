@@ -59,7 +59,8 @@ const useStyles = makeStyles(theme => ({
     padding: 10,
     backgroundColor: theme.palette.type === "light" ? "white" : "#282C34",
     [theme.breakpoints.down("sm")]: {
-      minHeight: "100vh"
+      minHeight: "100vh",
+      padding: "45px !important"
     }
   },
   listbox: {
