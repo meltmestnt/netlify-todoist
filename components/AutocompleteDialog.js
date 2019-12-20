@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.type === "light" ? "white" : "#282C34",
     [theme.breakpoints.down("sm")]: {
       minHeight: "100%",
-      padding: "40px 20px !important"
+      padding: "30px 10px !important"
     }
   },
   listbox: {
@@ -82,6 +82,7 @@ function AutocompleteDialog(props) {
     noLabels
   } = props;
   const [list, changeList] = React.useState(labels);
+  const [oldPendingValue, changeOldPandingValue] = React.useState(pendingValue);
   React.useEffect(() => changeList(labels), [labels, dialog]);
   const handleChange = (e, p) => {
     if (e.target.checked) {
@@ -101,7 +102,7 @@ function AutocompleteDialog(props) {
   };
   const determineIfChecked = o => pendingValue.find(i => i.id === o.id);
   const handleClose = () => {
-    setPendingValue([]);
+    setPendingValue(oldPendingValue);
     toggleDialog(false);
   };
   return (
@@ -162,7 +163,7 @@ function AutocompleteDialog(props) {
           </DialogContent>
         </>
       ) : (
-        <DialogContent>
+        <DialogContent style={{ padding: "15px 10px" }}>
           <div
             style={{
               display: "flex",

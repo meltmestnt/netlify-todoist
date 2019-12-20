@@ -17,6 +17,7 @@ import WithDragAndDrop from "./WithDragAndDrop";
 import { sortColumn } from "./../redux/actions";
 import ArrowAdviceButton from "./../components/arrowAdviceButton";
 import generateId from "./../utils/generator";
+import PreloaderContainer from "./PreloaderContainer";
 let id = generateId(10);
 
 function TodayContent(props) {
@@ -98,7 +99,7 @@ function TodayContent(props) {
     mainContent
   );
   const withTasks = (
-    <>
+    <PreloaderContainer list={tasks}>
       <DayInfo to="Сегодня" disabled getDay={getToday} date="Сегодня"></DayInfo>
       <DisplayList list={tasks} id={id} />
       {isCreating ? (
@@ -110,7 +111,7 @@ function TodayContent(props) {
       ) : (
         <ToAddTaskButton toggleTabs={toggleTabs}></ToAddTaskButton>
       )}
-    </>
+    </PreloaderContainer>
   );
   return (
     <WithDragAndDrop columns={column}>

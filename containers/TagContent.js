@@ -15,6 +15,7 @@ import GradeIcon from "@material-ui/icons/Grade";
 import ArrowTooltip from "./../components/ArrowTooltip";
 import ArrowAdviceButton from "./../components/arrowAdviceButton";
 import NotFoundImage from "./../components/NotFoundImage";
+import PreloaderContainer from "./PreloaderContainer";
 export default function(props) {
   const [isCreating, toggleTabs] = React.useState(false);
   const parsed = queryString.parse(props.location.search);
@@ -29,23 +30,25 @@ export default function(props) {
     <Container className={props.classes.content}>
       {tag ? (
         <>
-          <TagName name={tag.name}></TagName>
-          <WithDragAndDrop columns={tag}>
-            {() => <DisplayList list={tasks} id={parsed.id}></DisplayList>}
-          </WithDragAndDrop>
-          {isCreating ? (
-            <CreateTask
-              column={null}
-              tag={tag}
-              date={null}
-              cancel={() => toggleTabs(false)}
-            ></CreateTask>
-          ) : (
-            <ToAddTaskButton
-              date={"Завтра"}
-              toggleTabs={toggleTabs}
-            ></ToAddTaskButton>
-          )}
+          <PreloaderContainer list={tasks}>
+            <TagName name={tag.name}></TagName>
+            <WithDragAndDrop columns={tag}>
+              {() => <DisplayList list={tasks} id={parsed.id}></DisplayList>}
+            </WithDragAndDrop>
+            {isCreating ? (
+              <CreateTask
+                column={null}
+                tag={tag}
+                date={null}
+                cancel={() => toggleTabs(false)}
+              ></CreateTask>
+            ) : (
+              <ToAddTaskButton
+                date={"Завтра"}
+                toggleTabs={toggleTabs}
+              ></ToAddTaskButton>
+            )}
+          </PreloaderContainer>
           {tasks.length === 0 && !isCreating && (
             <div
               style={{
