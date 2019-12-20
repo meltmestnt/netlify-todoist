@@ -8,47 +8,55 @@ import ColorBadge from "./ColorBadge";
 const colors = [
   {
     color: "Красный",
-    hex: "#e57373"
+    hex: "#e66767"
   },
   {
     color: "Розовый",
-    hex: "#f06292"
+    hex: "#f78fb3"
   },
   {
     color: "Фиолетовый",
-    hex: "#ba68c8"
+    hex: "#D980FA"
   },
   {
     color: "Индиго",
-    hex: "#7986cb"
+    hex: "#546de5"
   },
   {
     color: "Голубой",
-    hex: "#4fc3f7"
+    hex: "#3dc1d3"
   },
   {
     color: "Зеленый",
-    hex: "#81c784"
+    hex: "#05c46b"
   },
   {
     color: "Лайм",
-    hex: "#dce775"
+    hex: "#A3CB38"
   },
   {
     color: "Желтый",
-    hex: "#fff176"
+    hex: "#feca57"
   },
   {
     color: "Оранжевый",
-    hex: "#ffb74d"
+    hex: "#ff9f43"
+  },
+  {
+    color: "Персиковый",
+    hex: "#f3a683"
   },
   {
     color: "Коричневый",
-    hex: "#e0e0e0"
+    hex: "#795548"
   },
   {
     color: "Серый",
-    hex: "#212121"
+    hex: "#596275"
+  },
+  {
+    color: "Черный",
+    hex: "#121212"
   }
 ];
 function DialogColorPicker(props) {

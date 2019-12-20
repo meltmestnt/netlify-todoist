@@ -1,14 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-export const useTagControls = tag => {
+export const useTagControls = (tag, task) => {
   const [marks, setMarks] = React.useState(
-    tag && tag.type === "mark" ? [tag] : []
+    task ? [...task.marks] : tag && tag.type === "mark" ? [tag] : []
   );
-  const [priority, setPriority] = React.useState([]);
+  const [priority, setPriority] = React.useState(task ? task.priority : []);
   const [projects, setProject] = React.useState(
-    tag && tag.type === "project" ? [tag] : []
+    task ? [...task.projects] : tag && tag.type === "project" ? [tag] : []
   );
+  console.log("USETAGCONTROLS", task);
   return {
     marks: [marks, setMarks],
     projects: [projects, setProject],

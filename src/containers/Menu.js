@@ -108,7 +108,7 @@ function Menu(props) {
         >
           <ListItemIcon className={classes.itemIcon}>
             <Badge badgeContent={item.tasksCount || 0}>
-              <item.icon color={"inherit"}></item.icon>
+              <item.icon></item.icon>
             </Badge>
           </ListItemIcon>
           <ListItemText

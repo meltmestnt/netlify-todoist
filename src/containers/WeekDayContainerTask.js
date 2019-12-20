@@ -5,6 +5,7 @@ import CreateTask from "./CreateTask";
 import Divider from "@material-ui/core/Divider";
 import DisplayList from "./../containers/DisplayList";
 import useTaskFilter from "./../utils/taskFilter";
+import PreloaderContainer from "./PreloaderContainer";
 
 function WeekDayContainerTask(props) {
   const [tab, toggleTabs] = React.useState(false);
@@ -23,7 +24,7 @@ function WeekDayContainerTask(props) {
 
   const tasks = useTaskFilter(column.taskIds);
   return (
-    <>
+    <PreloaderContainer list={tasks}>
       <DayInfo
         to={`${
           weekDay === "Сегодня" || weekDay === "Завтра"
@@ -47,7 +48,7 @@ function WeekDayContainerTask(props) {
       ) : (
         <ToAddTaskButton toggleTabs={triggerCurrentDay}></ToAddTaskButton>
       )}
-    </>
+    </PreloaderContainer>
   );
 }
 

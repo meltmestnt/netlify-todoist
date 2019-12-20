@@ -54,7 +54,8 @@ export const createTask = (task, columnId, tagColumnId) => {
     type: CREATE_TASK,
     task,
     columnId,
-    tagColumnId
+    tagColumnId,
+    comments: []
   };
 };
 

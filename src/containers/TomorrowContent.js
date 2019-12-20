@@ -10,6 +10,7 @@ import DisplayList from "./DisplayList";
 import generateId from "./../utils/generator";
 import { useSelector } from "react-redux";
 import useTaskFilter from "./../utils/taskFilter";
+import PreloaderContainer from "./PreloaderContainer";
 const id = generateId(10);
 function TodayContent(props) {
   const { classes } = props;
@@ -20,27 +21,29 @@ function TodayContent(props) {
   const tasks = useTaskFilter(column.taskIds);
   return (
     <Container className={classes.content}>
-      <DayInfo
-        disabled
-        to="/Завтра"
-        getDay={getTomorrow}
-        date="Завтра"
-      ></DayInfo>
-      <WithDragAndDrop columns={column}>
-        {() => <DisplayList list={tasks} id={id}></DisplayList>}
-      </WithDragAndDrop>
-      {isCreating ? (
-        <CreateTask
-          column={column}
-          date={getTomorrowDate()}
-          cancel={() => toggleTabs(false)}
-        ></CreateTask>
-      ) : (
-        <ToAddTaskButton
-          date={"Завтра"}
-          toggleTabs={toggleTabs}
-        ></ToAddTaskButton>
-      )}
+      <PreloaderContainer list={tasks}>
+        <DayInfo
+          disabled
+          to="/Завтра"
+          getDay={getTomorrow}
+          date="Завтра"
+        ></DayInfo>
+        <WithDragAndDrop columns={column}>
+          {() => <DisplayList list={tasks} id={id}></DisplayList>}
+        </WithDragAndDrop>
+        {isCreating ? (
+          <CreateTask
+            column={column}
+            date={getTomorrowDate()}
+            cancel={() => toggleTabs(false)}
+          ></CreateTask>
+        ) : (
+          <ToAddTaskButton
+            date={"Завтра"}
+            toggleTabs={toggleTabs}
+          ></ToAddTaskButton>
+        )}
+      </PreloaderContainer>
     </Container>
   );
 }

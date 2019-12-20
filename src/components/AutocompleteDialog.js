@@ -59,8 +59,8 @@ const useStyles = makeStyles(theme => ({
     padding: 10,
     backgroundColor: theme.palette.type === "light" ? "white" : "#282C34",
     [theme.breakpoints.down("sm")]: {
-      minHeight: "100vh",
-      padding: "45px !important"
+      minHeight: "100%",
+      padding: "30px 10px !important"
     }
   },
   listbox: {
@@ -82,6 +82,7 @@ function AutocompleteDialog(props) {
     noLabels
   } = props;
   const [list, changeList] = React.useState(labels);
+  const [oldPendingValue, changeOldPandingValue] = React.useState(pendingValue);
   React.useEffect(() => changeList(labels), [labels, dialog]);
   const handleChange = (e, p) => {
     if (e.target.checked) {
@@ -99,9 +100,9 @@ function AutocompleteDialog(props) {
         : labels;
     changeList(filteredList);
   };
-  const determineIfChecked = o => pendingValue.includes(o);
+  const determineIfChecked = o => pendingValue.find(i => i.id === o.id);
   const handleClose = () => {
-    setPendingValue([]);
+    setPendingValue(oldPendingValue);
     toggleDialog(false);
   };
   return (
@@ -133,7 +134,9 @@ function AutocompleteDialog(props) {
                 <RadioGroup
                   value={pendingValue.id}
                   onChange={e =>
-                    setPendingValue(labels.filter(i => i.id === e.target.value))
+                    setPendingValue(
+                      labels.filter(i => i.id === e.target.value)[0]
+                    )
                   }
                 >
                   {list.map(option => (
@@ -160,19 +163,20 @@ function AutocompleteDialog(props) {
           </DialogContent>
         </>
       ) : (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: 15
-          }}
-        >
-          <RemoveCircleIcon color="primary"></RemoveCircleIcon>
-          <Typography style={{ margin: "0px 10px" }} variant="h6">
-            {noLabels}
-          </Typography>
-        </div>
+        <DialogContent style={{ padding: "15px 10px" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <RemoveCircleIcon color="primary"></RemoveCircleIcon>
+            <Typography style={{ margin: "0px 10px" }} variant="h6">
+              {noLabels}
+            </Typography>
+          </div>
+        </DialogContent>
       )}
       <DialogActions>
         <Button autoFocus onClick={handleClose} color="primary">

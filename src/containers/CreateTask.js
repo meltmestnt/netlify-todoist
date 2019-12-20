@@ -49,7 +49,8 @@ const useStyles = makeStyles(theme => ({
     textTransform: "inherit",
     padding: "5px 10px",
     [theme.breakpoints.down("sm")]: {
-      padding: "5px 5px"
+      padding: "5px 5px",
+      marginLeft: 0
     }
   },
   cancelButton: {

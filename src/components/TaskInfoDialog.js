@@ -60,11 +60,12 @@ function TaskInfoDialog({ showDialog, toggleDialog, task, deleteTask }) {
     toggleDialog(false);
     setDate(task.date);
   };
-  const {
+  let {
     marks: [marks, setMarks],
     projects: [projects, setProjects],
     priority: [priority, setPriority]
-  } = useTagControls();
+  } = useTagControls(null, task);
+  console.log("TASKINFODIALOG", marks, projects, priority);
   return (
     <Dialog
       classes={{ paper: classes.paper, container: classes.container }}

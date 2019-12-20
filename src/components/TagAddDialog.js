@@ -15,23 +15,25 @@ const useStyles = makeStyles(theme => ({
   formControl: {
     minWidth: 120,
     width: "100%",
-    margin: 5
+    margin: 5,
+    marginLeft: 0
   },
   paper: {
     [theme.breakpoints.down("sm")]: {
       maxWidth: "100% !important",
       width: "100%",
-      padding: 40,
-      minHeight: "100vh",
+      padding: "30px 10px",
+      minHeight: "100%",
       margin: "0px !important"
     }
   },
   text: {
-    margin: 5
+    margin: 5,
+    marginLeft: 0
   }
 }));
 function TagAddDialog(props) {
-  const defaultColor = "#e57373";
+  const defaultColor = "#e66767";
   const { open, close, title, body, addProject } = props;
   const [color, toggleColor] = React.useState(defaultColor);
   const [favorite, toggleFavorite] = React.useState(false);
@@ -68,8 +70,10 @@ function TagAddDialog(props) {
       open={open}
       onClose={close}
     >
-      <DialogTitle id="form-dialog-title">Создать {title}</DialogTitle>
-      <DialogContent>
+      <DialogTitle style={{ padding: 10 }} id="form-dialog-title">
+        Создать {title}
+      </DialogTitle>
+      <DialogContent style={{ padding: 10 }}>
         <DialogContentText className={classes.text}>
           Название {body}
         </DialogContentText>
@@ -77,7 +81,7 @@ function TagAddDialog(props) {
           autoFocus
           margin="dense"
           id="name"
-          style={{ margin: 5 }}
+          style={{ margin: 5, marginLeft: 0 }}
           variant="outlined"
           fullWidth
           value={name}

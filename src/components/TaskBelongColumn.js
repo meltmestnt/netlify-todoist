@@ -4,6 +4,7 @@ import { useTaskWhichTag } from "./../utils/taskFilter";
 import Button from "@material-ui/core/Button";
 import ColorBadge from "./ColorBadge";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
+import { Link } from "react-router-dom";
 function TaskBelongColumn({ task, close }) {
   const tags = useTaskWhichTag(task);
 
@@ -19,6 +20,11 @@ function TaskBelongColumn({ task, close }) {
       <div style={{ flexGrow: 1 }}>
         {tags.map(tag => (
           <Button
+            component={Link}
+            to={`/${tag.type === "project" ? "проекты" : "метки"}/${
+              tag.name
+            }?id=${tag.id}`}
+            onClick={close}
             style={{
               marginRight: "10px",
               textTransform: "capitalize",
