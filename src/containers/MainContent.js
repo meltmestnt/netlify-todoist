@@ -10,6 +10,7 @@ import TomorrowContent from "./TomorrowContent";
 import WeekContent from "./WeekContent";
 import { useTheme } from "@material-ui/styles";
 import WeekDayContent from "./WeekDayContent";
+import NotFoundImage from "./../components/NotFoundImage";
 import TagContent from "./TagContent";
 const useStyle = makeStyles(theme => {
   return {
@@ -84,11 +85,6 @@ function MainContent(props) {
             <Grid item xs={12} className={classes.mainContainer}>
               <Switch>
                 <Route
-                  exact
-                  path="/"
-                  render={() => <div>Main route</div>}
-                ></Route>
-                <Route
                   path="/сегодня"
                   render={() => <TodayContent classes={classes}></TodayContent>}
                 ></Route>
@@ -113,6 +109,25 @@ function MainContent(props) {
                   path={["/проекты/:name", "/метки/:name"]}
                   render={routeProps => (
                     <TagContent {...routeProps} classes={classes}></TagContent>
+                  )}
+                ></Route>
+                <Route
+                  path="*"
+                  render={() => (
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        justifyContent: "center",
+                        width: "100%",
+                        height: "100%",
+                        marginTop: "40px"
+                      }}
+                    >
+                      <span style={{ width: 400, height: 350 }}>
+                        <NotFoundImage></NotFoundImage>
+                      </span>
+                    </div>
                   )}
                 ></Route>
               </Switch>
