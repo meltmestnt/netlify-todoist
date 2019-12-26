@@ -79,7 +79,8 @@ function AutocompleteDialog(props) {
     label,
     singular = false,
     placeholder,
-    noLabels
+    noLabels,
+    apply
   } = props;
   const [list, changeList] = React.useState(labels);
   const [oldPendingValue, changeOldPandingValue] = React.useState(pendingValue);
@@ -90,6 +91,7 @@ function AutocompleteDialog(props) {
     } else {
       setPendingValue(pendingValue.filter(i => i.id !== p.id));
     }
+    apply && apply();
   };
   const filterLabels = text => {
     const filteredList =
@@ -133,11 +135,12 @@ function AutocompleteDialog(props) {
               {singular ? (
                 <RadioGroup
                   value={pendingValue.id}
-                  onChange={e =>
+                  onChange={e => {
                     setPendingValue(
                       labels.filter(i => i.id === e.target.value)[0]
-                    )
-                  }
+                    );
+                    apply && apply();
+                  }}
                 >
                   {list.map(option => (
                     <FormControlLabel

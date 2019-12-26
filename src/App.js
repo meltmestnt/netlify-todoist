@@ -4,6 +4,7 @@ import MainContent from "./containers/MainContent";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import { BrowserRouter as Router } from "react-router-dom";
 const dark = {
   overrides: {
     MuiPickersToolbar: {
@@ -14,8 +15,6 @@ const dark = {
     },
     MuiTooltip: {
       popper: {
-        color: "#D3D3D3",
-        background: `#282C34 !important`,
         opacity: 0.95
       },
       tooltip: {
@@ -135,11 +134,16 @@ function App() {
         className="App"
         style={{ width: "100%", minHeight: "100%", height: "100%" }}
       >
-        <MuiThemeProvider theme={muiTheme}>
-          <Header openMenu={handleMenuClose} changeTheme={changeTheme}></Header>
+        <Router>
+          <MuiThemeProvider theme={muiTheme}>
+            <Header
+              openMenu={handleMenuClose}
+              changeTheme={changeTheme}
+            ></Header>
 
-          <MainContent menu={menu} closeMenu={handleMenuClose}></MainContent>
-        </MuiThemeProvider>
+            <MainContent menu={menu} closeMenu={handleMenuClose}></MainContent>
+          </MuiThemeProvider>
+        </Router>
       </div>
     </Provider>
   );

@@ -10,3 +10,4 @@ export const DRAG_START = "DRAG_START";
 export const DRAG_END = "DRAG_END";
 export const DELETE_TASK = "DELETE_TASK";
 export const SORT_MENU_COLUMN = "SORT_MENU_COLUMN";
+export const CHANGE_TASK = "CHANGE_TASK";

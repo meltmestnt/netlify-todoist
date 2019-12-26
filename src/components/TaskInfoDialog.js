@@ -17,6 +17,9 @@ import ProjectsSuggest from "./ProjectsSuggest";
 import MarksSuggest from "./MarksSuggest";
 import PrioritySuggest from "./PrioritySuggest";
 import { useTagControls } from "./../utils/taskFilter";
+import { useDispatch } from "react-redux";
+import { changeTask } from "./../redux/actions";
+import { useDetermineColumn } from "../utils/taskFilter";
 const useStyles = makeStyles(theme => ({
   icon: {
     cursor: "pointer",
@@ -45,6 +48,7 @@ const useStyles = makeStyles(theme => ({
 
 const Transition = React.forwardRef((props, ref) => {
   const theme = useTheme();
+
   const windowSize = useMediaQuery(theme.breakpoints.up("sm"));
   return windowSize ? (
     <Slide direction="left" {...props} timeout={300} ref={ref}></Slide>
@@ -54,7 +58,8 @@ const Transition = React.forwardRef((props, ref) => {
 });
 function TaskInfoDialog({ showDialog, toggleDialog, task, deleteTask }) {
   const classes = useStyles();
-  console.log(task);
+  const [apply, toggleApply] = React.useState(true);
+  const dispatch = useDispatch();
   const [date, setDate] = React.useState(task.date);
   const handleClose = () => {
     toggleDialog(false);
@@ -65,7 +70,35 @@ function TaskInfoDialog({ showDialog, toggleDialog, task, deleteTask }) {
     projects: [projects, setProjects],
     priority: [priority, setPriority]
   } = useTagControls(null, task);
-  console.log("TASKINFODIALOG", marks, projects, priority);
+
+  const handleDate = d => {
+    const taskDate = new Date(task.date);
+    taskDate.setHours(0, 0, 0, 0);
+    const newDate = new Date(d);
+    newDate.setHours(0, 0, 0, 0);
+    setDate(d);
+    if (taskDate.getTime() !== newDate.getTime()) {
+      toggleApply(false);
+    }
+  };
+  const columnByDate = useDetermineColumn(date);
+  const oldColumn = useDetermineColumn(task.date);
+  const handleApply = () => {
+    dispatch(
+      changeTask(
+        {
+          ...task,
+          marks,
+          projects,
+          priority,
+          date
+        },
+        columnByDate,
+        oldColumn
+      )
+    );
+    toggleDialog(false);
+  };
   return (
     <Dialog
       classes={{ paper: classes.paper, container: classes.container }}
@@ -80,23 +113,29 @@ function TaskInfoDialog({ showDialog, toggleDialog, task, deleteTask }) {
       <div style={{ padding: 15 }}>
         <TaskTitle task={task} deleteTask={deleteTask} />
         <div style={{ margin: "20px 0px", width: "150px" }}>
-          <DatePicker date={date} setDate={setDate} outlined></DatePicker>
+          <DatePicker date={date} setDate={handleDate} outlined></DatePicker>
         </div>
         <ProjectsSuggest
           setProjects={setProjects}
           projects={projects}
           classes={classes}
+          apply={() => toggleApply(false)}
         ></ProjectsSuggest>
 
         <MarksSuggest
           setMarks={setMarks}
           marks={marks}
           classes={classes}
+          apply={() => toggleApply(false)}
         ></MarksSuggest>
         <PrioritySuggest
           setPriority={setPriority}
           priority={priority}
           classes={classes}
+          apply={() => {
+            console.log("PRIORITY SUGGEST");
+            toggleApply(false);
+          }}
         ></PrioritySuggest>
       </div>
       <DialogContent>
@@ -106,8 +145,15 @@ function TaskInfoDialog({ showDialog, toggleDialog, task, deleteTask }) {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
+        <Button
+          disabled={apply}
+          onClick={e => !apply && handleApply()}
+          color="primary"
+        >
+          Применить
+        </Button>
         <Button onClick={handleClose} color="primary">
-          ок
+          Закрыть
         </Button>
       </DialogActions>
     </Dialog>

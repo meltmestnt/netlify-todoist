@@ -4,7 +4,8 @@ import {
   MOVE_TASK,
   DRAG_START,
   DRAG_END,
-  DELETE_TASK
+  DELETE_TASK,
+  CHANGE_TASK
 } from "./../constants";
 import { getWeek } from "./../../utils/date";
 
@@ -29,6 +30,33 @@ const initialState = {
 };
 export default (state = initialState, action) => {
   switch (action.type) {
+    case CHANGE_TASK: {
+      return {
+        ...state,
+        tasks: state.tasks.map(t => {
+          if (t.id === action.task.id) {
+            return {
+              ...t,
+              ...action.task
+            };
+          } else return t;
+        }),
+        columns: {
+          ...state.columns,
+          [action.columnId]: {
+            ...state.columns[action.columnId],
+            taskIds: [...state.columns[action.columnId].taskIds, action.task.id]
+          },
+          [action.oldId]: {
+            ...state.columns[action.oldId],
+            taskIds: state.columns[action.oldId].taskIds.filter(
+              id => id !== action.task.id
+            )
+          }
+        }
+      };
+      break;
+    }
     case DELETE_TASK:
       if (!action.columnId) return { ...state };
       return {

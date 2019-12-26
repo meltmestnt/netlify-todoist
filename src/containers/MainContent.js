@@ -10,8 +10,11 @@ import TomorrowContent from "./TomorrowContent";
 import WeekContent from "./WeekContent";
 import { useTheme } from "@material-ui/styles";
 import WeekDayContent from "./WeekDayContent";
-import NotFoundImage from "./../components/NotFoundImage";
+
 import TagContent from "./TagContent";
+import MainPageContent from "./MainPageContent";
+import ProtectedRoute from "./ProtectedRoute";
+import NotFound from "./NotFound";
 const useStyle = makeStyles(theme => {
   return {
     mainContent: {
@@ -71,71 +74,59 @@ function MainContent(props) {
   const classes = useStyle();
   const theme = useTheme();
   return (
-    <Router>
-      <div className={classes.root}>
-        <CssBaseline></CssBaseline>
-        <Container maxWidth={"lg"} className={classes.container}>
-          <Grid container className={classes.container}>
-            <div style={{ width: "333px", position: "relative" }}>
-              <Menu
-                menuOpen={props.menu}
-                handleMenuClose={props.closeMenu}
-              ></Menu>
-            </div>
-            <Grid item xs={12} className={classes.mainContainer}>
-              <Switch>
-                <Route
-                  path="/сегодня"
-                  render={() => <TodayContent classes={classes}></TodayContent>}
-                ></Route>
-                <Route
-                  path="/завтра"
-                  render={() => (
-                    <TomorrowContent classes={classes}></TomorrowContent>
-                  )}
-                ></Route>
-                <Route
-                  path="/неделя"
-                  exact
-                  render={() => <WeekContent classes={classes}></WeekContent>}
-                ></Route>
-                <Route
-                  path="/неделя/:id"
-                  render={routeProps => (
-                    <WeekDayContent {...routeProps} classes={classes} />
-                  )}
-                ></Route>
-                <Route
-                  path={["/проекты/:name", "/метки/:name"]}
-                  render={routeProps => (
-                    <TagContent {...routeProps} classes={classes}></TagContent>
-                  )}
-                ></Route>
-                <Route
-                  path="*"
-                  render={() => (
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "flex-start",
-                        justifyContent: "center",
-                        width: "100%",
-                        height: "100%",
-                        marginTop: "40px"
-                      }}
-                    >
-                      <span style={{ width: 400, height: 350 }}>
-                        <NotFoundImage></NotFoundImage>
-                      </span>
-                    </div>
-                  )}
-                ></Route>
-              </Switch>
-            </Grid>
+    <div className={classes.root}>
+      <CssBaseline></CssBaseline>
+
+      <Container maxWidth={"lg"} className={classes.container}>
+        <Grid container className={classes.container}>
+          <div style={{ width: "333px", position: "relative" }}>
+            <Menu
+              menuOpen={props.menu}
+              handleMenuClose={props.closeMenu}
+            ></Menu>
+          </div>
+          <Grid item xs={12} className={classes.mainContainer}>
+            <Switch>
+              <Route
+                path="/"
+                exact
+                render={props => <MainPageContent {...props}></MainPageContent>}
+              ></Route>
+              <ProtectedRoute
+                path="/сегодня"
+                classes={classes}
+                component={TodayContent}
+              ></ProtectedRoute>
+              <ProtectedRoute
+                path="/завтра"
+                classes={classes}
+                component={TomorrowContent}
+              ></ProtectedRoute>
+              <ProtectedRoute
+                path="/неделя"
+                exact
+                classes={classes}
+                component={WeekContent}
+              ></ProtectedRoute>
+              <ProtectedRoute
+                path="/неделя/:id"
+                classes={classes}
+                component={WeekDayContent}
+              ></ProtectedRoute>
+              <ProtectedRoute
+                path={["/проекты/:name", "/метки/:name"]}
+                classes={classes}
+                component={TagContent}
+              ></ProtectedRoute>
+              <Route
+                path="*"
+                render={props => <NotFound {...props}></NotFound>}
+              ></Route>
+            </Switch>
           </Grid>
-        </Container>
-      </div>
-    </Router>
+        </Grid>
+      </Container>
+    </div>
   );
 }
 

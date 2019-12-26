@@ -8,7 +8,7 @@ import ColorBadge from "./ColorBadge";
 export default function ProjectsSuggest(props) {
   const { classes } = props;
   const [dialog, toggleDialog] = React.useState(false);
-  const { projects, setProjects } = props;
+  const { projects, setProjects, apply = null } = props;
   const labels = useSelector(state => state.tags.projects);
   return (
     <React.Fragment>
@@ -26,6 +26,7 @@ export default function ProjectsSuggest(props) {
         pendingValue={projects}
         setPendingValue={setProjects}
         label="Проекты"
+        apply={apply}
         noLabels="Нет созданных проектов!"
         placeholder="Введите название проекта"
         labels={labels}

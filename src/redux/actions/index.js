@@ -8,8 +8,18 @@ import {
   DRAG_START,
   DRAG_END,
   SORT_MENU_COLUMN,
-  DELETE_TASK
+  DELETE_TASK,
+  CHANGE_TASK
 } from "../constants";
+
+export const changeTask = (task, id, oldId) => {
+  return {
+    type: CHANGE_TASK,
+    task: task,
+    columnId: id,
+    oldId: oldId
+  };
+};
 
 export const deleteTask = ({ task, columnId, tagColumnId }) => {
   return {

@@ -9,7 +9,7 @@ import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 export default function MarksSuggest(props) {
   const { classes } = props;
   const [dialog, toggleDialog] = React.useState(null);
-  const { marks, setMarks } = props;
+  const { marks, setMarks, apply = null } = props;
   const labels = useSelector(state => state.tags.marks);
   return (
     <React.Fragment>
@@ -27,6 +27,7 @@ export default function MarksSuggest(props) {
         pendingValue={marks}
         setPendingValue={setMarks}
         label="Метки"
+        apply={apply}
         noLabels="Нет созданных меток!"
         placeholder="Введите название метки"
         labels={labels}

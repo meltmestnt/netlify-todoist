@@ -8,7 +8,7 @@ import generateId from "./../utils/generator";
 export default function PrioritySuggest(props) {
   const { classes } = props;
   const [dialog, toggleDialog] = React.useState(false);
-  const { setPriority } = props;
+  const { setPriority, apply = null } = props;
   let priority = props.priority || [];
   return (
     <React.Fragment>
@@ -30,6 +30,7 @@ export default function PrioritySuggest(props) {
         setPendingValue={setPriority}
         labels={labels}
         label="Приоритет"
+        apply={apply}
         placeholder="Выберите приоритет"
         singular
         tagIcon={item => <FlagIcon color={item.color}></FlagIcon>}
